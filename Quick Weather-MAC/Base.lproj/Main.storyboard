@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
-        <plugIn identifier="com.apple.WebKit2IBPlugin" version="14460.31"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="17506"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -614,7 +615,7 @@
                                         <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
+                                                <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
@@ -705,10 +706,10 @@
                                 <color key="contentTintColor" red="0.28832465280000003" green="0.28832465280000003" blue="0.28832465280000003" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Q18-6z-R9R">
-                                <rect key="frame" x="20" y="20" width="25" height="25"/>
+                                <rect key="frame" x="20" y="20" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="N2W-eT-4Qn"/>
-                                    <constraint firstAttribute="height" constant="25" id="Umc-FC-4BU"/>
+                                    <constraint firstAttribute="width" constant="20" id="N2W-eT-4Qn"/>
+                                    <constraint firstAttribute="height" constant="20" id="Umc-FC-4BU"/>
                                 </constraints>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="exit_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9Ot-dk-JPY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -733,10 +734,10 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="VDQ-a9-05N">
-                                <rect key="frame" x="458" y="527" width="25" height="25"/>
+                                <rect key="frame" x="463" y="532" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="TK4-Kv-3xx"/>
-                                    <constraint firstAttribute="height" constant="25" id="jTD-Sk-iqU"/>
+                                    <constraint firstAttribute="width" constant="20" id="TK4-Kv-3xx"/>
+                                    <constraint firstAttribute="height" constant="20" id="jTD-Sk-iqU"/>
                                 </constraints>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="location_selected_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CyB-lv-4M5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -753,7 +754,7 @@
                                     <constraint firstAttribute="height" constant="25" id="r8u-Ad-99p"/>
                                 </constraints>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="City: " id="vuf-n9-xbH">
-                                    <font key="font" metaFont="system" size="20"/>
+                                    <font key="font" size="17" name="Futura-Medium"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -763,16 +764,19 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8W-yQ-jc3">
-                                        <rect key="frame" x="0.0" y="315" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="314" width="375" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="center" placeholderString="Enter Your City" drawsBackground="YES" id="Yho-Er-hmd">
-                                            <font key="font" metaFont="system" size="40"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="center" placeholderString="Press ENTER to Search" id="Yho-Er-hmd">
+                                            <font key="font" size="25" name="Futura-Medium"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" red="0.28832465280000003" green="0.28832465280000003" blue="0.28832465280000003" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                                         </textFieldCell>
+                                        <connections>
+                                            <action selector="userTypedCity:" target="XfG-lQ-9wD" id="Obt-RK-908"/>
+                                        </connections>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mco-tM-V4F">
-                                        <rect key="frame" x="329" y="326" width="38" height="38"/>
+                                        <rect key="frame" x="342" y="336" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="close_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2dD-yJ-qoV">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -787,6 +791,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </subviews>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </visualEffectView>
                         </subviews>
                         <constraints>
@@ -825,10 +834,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close_icon" width="37.5" height="37.5"/>
+        <image name="close_icon" width="50" height="50"/>
         <image name="exit_icon" width="50" height="50"/>
-        <image name="location_selected_icon" width="24" height="24"/>
-        <image name="refresh_icon" width="37.5" height="37.5"/>
+        <image name="location_selected_icon" width="30" height="30"/>
+        <image name="refresh_icon" width="50" height="50"/>
         <image name="title_icon" width="256" height="256"/>
     </resources>
 </document>

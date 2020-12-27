@@ -9,6 +9,7 @@
 import Cocoa
 import WebKit
 import CoreLocation
+import Alamofire
 
 class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, CLLocationManagerDelegate, NSTextFieldDelegate {
     
@@ -36,7 +37,7 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        // Weather Content: https://rawcdn.githack.com/ozanmirza1/Quick-Weather/38ecd617ec3f24f821dd45ee72e7160e1b8da9d0/CONTENT/index.html
+        // Weather Content: https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/6a1164725ca149523f59a0883b125f2c323869db/BASE_FILES/index.html
         // City Names: https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json
         
         locationGetter = NSProgressIndicator()
@@ -57,6 +58,7 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         cityPicker.wantsLayer = true
         cityPicker.layer?.cornerRadius = 25
         cityPicker.layer?.masksToBounds = true
+        cityPicker.layer?.borderColor = NSColor.white.cgColor
         cityPicker.frame.origin.y = 0 - cityPicker.frame.size.height
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
@@ -68,7 +70,7 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         
         if CLLocationManager.locationServicesEnabled() == false {
             let bg = NSVisualEffectView(frame: self.view.bounds)
-            bg.material = NSVisualEffectView.Material.appearanceBased
+            bg.material = NSVisualEffectView.Material.contentBackground
             self.view.addSubview(bg)
             
             let prompt = NSView(frame: NSRect(x: 64, y: self.view.frame.size.height + 300, width: bg.frame.size.width - 128, height: 300))
@@ -159,7 +161,7 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
                 self.mainView.uiDelegate = self
                 self.mainView.navigationDelegate = self
-                self.mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/ozanmirza1/Quick-Weather/38ecd617ec3f24f821dd45ee72e7160e1b8da9d0/CONTENT/index.html")!))
+                self.mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/6a1164725ca149523f59a0883b125f2c323869db/BASE_FILES/index.html")!))
             }
         }
     }
@@ -173,39 +175,37 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         NSApplication.shared.terminate(self)
     }
     
-    func controlTextDidChange(_ obj: Notification) {
-        if (obj.object as? NSTextField)! == citySetter {
-            citySetter.stringValue = citySetter.stringValue.trimmingCharacters(in: CharacterSet(charactersIn: "/\\"))
-            let finder = citySetter.stringValue.replacingOccurrences(of: " ", with: "%20")
-            self.autoCompleteCityNames(with: finder, completion: { parsedData in
-                self.currentCities = []
-                DispatchQueue.main.async {
-                    self.autoViews.subviews.forEach { subLbl in subLbl.removeFromSuperview() }
-                    var y_pos = self.autoViews.frame.size.height
-                    if parsedData != nil {
-                        for i in 0..<parsedData!.predictions.count {
-                            let subLbl = NSButton(frame: NSRect(x: 0, y: y_pos, width: 375, height: 50))
-                            y_pos -= 50
-                            subLbl.wantsLayer = true
-                            subLbl.layer?.backgroundColor = NSColor.clear.cgColor
-                            subLbl.font = NSFont.systemFont(ofSize: 25)
-                            subLbl.title = parsedData!.predictions[i].description!
-                            subLbl.isBordered = false
-                            subLbl.action = #selector(self.setCustomLocation(_:))
-                            if subLbl.title.count > 35 {
-                                subLbl.font = NSFont.systemFont(ofSize: 20)
-                            }
-                            self.autoViews.addSubview(subLbl)
-                            let divider = NSView(frame: NSRect(x: 0, y: y_pos, width: 375, height: 2))
-                            divider.wantsLayer = true
-                            divider.layer?.backgroundColor = NSColor.gray.cgColor
-                            self.autoViews.addSubview(divider)
-                            self.currentCities.append(parsedData?.predictions[i].structuredFormatting?.mainText ?? self.citySetter.stringValue)
+    @IBAction func userTypedCity(_ sender: Any!) {
+        citySetter.stringValue = citySetter.stringValue.trimmingCharacters(in: CharacterSet(charactersIn: "/\\"))
+        let finder = citySetter.stringValue.replacingOccurrences(of: " ", with: "%20")
+        self.autoCompleteCityNames(with: finder, completion: { parsedData in
+            self.currentCities = []
+            DispatchQueue.main.async {
+                self.autoViews.subviews.forEach { subLbl in subLbl.removeFromSuperview() }
+                var y_pos = self.autoViews.frame.size.height
+                if parsedData != nil {
+                    for i in 0..<parsedData!.predictions.count {
+                        let subLbl = NSButton(frame: NSRect(x: 0, y: y_pos, width: 375, height: 50))
+                        y_pos -= 50
+                        subLbl.wantsLayer = true
+                        subLbl.layer?.backgroundColor = NSColor.clear.cgColor
+                        subLbl.font = NSFont.systemFont(ofSize: 25)
+                        subLbl.title = parsedData!.predictions[i].description!
+                        subLbl.isBordered = false
+                        subLbl.action = #selector(self.setCustomLocation(_:))
+                        if subLbl.title.count > 35 {
+                            subLbl.font = NSFont.systemFont(ofSize: 20)
                         }
+                        self.autoViews.addSubview(subLbl)
+                        let divider = NSView(frame: NSRect(x: 0, y: y_pos, width: 375, height: 2))
+                        divider.wantsLayer = true
+                        divider.layer?.backgroundColor = NSColor.gray.cgColor
+                        self.autoViews.addSubview(divider)
+                        self.currentCities.append(parsedData?.predictions[i].structuredFormatting?.mainText ?? self.citySetter.stringValue)
                     }
                 }
-            })
-        }
+            }
+        })
     }
     
     @objc func setCustomLocation(_ sender: NSButton!) {
@@ -221,8 +221,10 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         self.autoViews.subviews.forEach { (autoCompleter) in autoCompleter.removeFromSuperview() }
         for i in 0..<currentCities.count {
             if sender.title.contains(currentCities[i]) {
-                URLSession.shared.dataTask(with: URL(string: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + currentCities[i].forSorting + "&types=address&language=en&sensor=true&key=AIzaSyA8pukmW_of-7QT_Y1FH9MkqZOq4X8Ux7o")!) { (data, response, error) in
-                    guard let data = data else { return }
+                var request = URLRequest(url: URL(string: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + currentCities[i].forSorting + "&types=address&language=en&sensor=true&key=AIzaSyA5n9gxzURnB5TSwHWYTlfDRw45XbNanQE")!)
+                request.httpMethod = "GET"
+                AF.request(request).response { response in
+                    guard let data = response.data else { return }
                     do {
                         let address = try JSONDecoder().decode(PLaces.self, from: data)
                         if address.status == "ZERO_RESULTS" {
@@ -236,11 +238,11 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
                                 } else {
                                     self.lat = location!.coordinate.latitude
                                     self.lon = location!.coordinate.longitude
-                                    
+
                                     DispatchQueue.main.async {
                                         self.cityLbl.stringValue = "City: " + self.currentCities[i]
                                         self.refreshWeatherContent(sender)
-                                        
+
                                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
                                             activityIndicator.removeFromSuperview()
                                             self.dismissCityPicker()
@@ -252,14 +254,14 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
                     } catch let error {
                         self.dialogOKCancel(question: "Error Parsing JSON:", text: error.localizedDescription)
                     }
-                }.resume()
+                }
                 break
             }
         }
     }
     
     @IBAction func refreshWeatherContent(_ sender: NSButton) {
-        mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/ozanmirza1/Quick-Weather/38ecd617ec3f24f821dd45ee72e7160e1b8da9d0/CONTENT/index.html")!))
+        mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/6a1164725ca149523f59a0883b125f2c323869db/BASE_FILES/index.html")!))
     }
     
     func dialogOKCancel(question: String, text: String) {
@@ -328,13 +330,15 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         NSAnimationContext.endGrouping()
     }
     
-    func autoCompleteCityNames(with contents: String, completion:@escaping (PLaces?)->()) {
-        URLSession.shared.dataTask(with: URL(string: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + contents + "&types=(cities)&language=en&sensor=true&key=AIzaSyA8pukmW_of-7QT_Y1FH9MkqZOq4X8Ux7o")!) { (data, response, error) in
-            guard let data = data else { return }
+    func autoCompleteCityNames(with contents: String, completion: @escaping (PLaces?)->()) {
+        var request = URLRequest(url: URL(string: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=" + contents + "&types=(cities)&language=en&sensor=true&key=AIzaSyA5n9gxzURnB5TSwHWYTlfDRw45XbNanQE")!)
+        request.httpMethod = "GET"
+        AF.request(request).response { response in
+            guard let data = response.data else { return }
             do {
                 return completion(try? JSONDecoder().decode(PLaces.self, from: data))
             }
-        }.resume()
+        }
     }
 }
 

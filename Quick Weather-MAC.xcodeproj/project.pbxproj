@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		F7050F0022112D4900181EF5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7050EFF22112D4900181EF5 /* Location.swift */; };
+		F717F3A725978B2F00D1508A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F717F3A625978B2F00D1508A /* Alamofire */; };
 		F75BCB17221394AE009396B3 /* CLLocationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75BCB16221394AE009396B3 /* CLLocationExtension.swift */; };
 		F78E8CBB220F78BD00E1AE69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78E8CBA220F78BD00E1AE69 /* AppDelegate.swift */; };
 		F78E8CBF220F78BF00E1AE69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F78E8CBE220F78BF00E1AE69 /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F717F3A725978B2F00D1508A /* Alamofire in Frameworks */,
 				F78E8CF6220FA0B900E1AE69 /* CoreLocation.framework in Frameworks */,
 				F78E8CF4220F9F1500E1AE69 /* WebKit.framework in Frameworks */,
 			);
@@ -182,6 +184,9 @@
 			dependencies = (
 			);
 			name = "Quick Weather-MAC";
+			packageProductDependencies = (
+				F717F3A625978B2F00D1508A /* Alamofire */,
+			);
 			productName = "Quick Weather-MAC";
 			productReference = F78E8CB7220F78BD00E1AE69 /* Quick Weather.app */;
 			productType = "com.apple.product-type.application";
@@ -259,6 +264,9 @@
 				Base,
 			);
 			mainGroup = F78E8CAE220F78BD00E1AE69;
+			packageReferences = (
+				F717F3A525978B2F00D1508A /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = F78E8CB8220F78BD00E1AE69 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -475,14 +483,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Quick Weather-MAC/Quick Weather-MAC.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = QXNMG5R4EQ;
 				INFOPLIST_FILE = "Quick Weather-MAC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.burcumirza.Quick-Weather-MAC";
 				PRODUCT_NAME = "Quick Weather";
 				SWIFT_VERSION = 4.2;
@@ -494,14 +505,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Quick Weather-MAC/Quick Weather-MAC.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = QXNMG5R4EQ;
 				INFOPLIST_FILE = "Quick Weather-MAC/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.burcumirza.Quick-Weather-MAC";
 				PRODUCT_NAME = "Quick Weather";
 				SWIFT_VERSION = 4.2;
@@ -630,6 +644,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F717F3A525978B2F00D1508A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F717F3A625978B2F00D1508A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F717F3A525978B2F00D1508A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F78E8CAF220F78BD00E1AE69 /* Project object */;
 }
