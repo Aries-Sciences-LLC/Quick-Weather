@@ -125,10 +125,10 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
 // Get Weather Data
 
-function getWeatherData(lat, lon) {
+function getWeatherData(lat, lon, units) {
 	$.ajax({
 		type: "GET",
-		url: "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=c43dc67f50678fa8deb7d820b8cc9f69&units=imperial",
+		url: "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=c43dc67f50678fa8deb7d820b8cc9f69&units=" + (units == "F" ? "imperial" : "metric"),
 		dataType: "JSON",
 		success: function(result, status, xhr) {
 			data.temp = result.main.temp;
