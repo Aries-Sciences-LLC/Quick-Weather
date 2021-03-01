@@ -33,12 +33,29 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
     @IBOutlet weak var cityPicker: NSVisualEffectView!
     @IBOutlet weak var citySetter: NSTextField!
     @IBOutlet weak var autoViews: NSView!
+    @IBOutlet weak var switcherBackground: NSView!
+    @IBOutlet weak var switcherHighlight: NSView!
+    @IBOutlet var highlightX: NSLayoutConstraint!
+    @IBOutlet var switcherX: NSLayoutConstraint!
+    @IBOutlet var powerX: NSLayoutConstraint!
+    @IBOutlet var labelx: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        // Weather Content: https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/6a1164725ca149523f59a0883b125f2c323869db/BASE_FILES/index.html
+        // Weather Content: https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/14740f1daf51a4296044d90b57355aa8a36e4ba8/BASE_FILES/index.html
         // City Names: https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json
+        
+        if UserDefaults.standard.string(forKey: "units") == nil {
+            UserDefaults.standard.setValue("F", forKey: "units")
+        }
+        
+        if UserDefaults.standard.string(forKey: "units") == "F" {
+            NSAnimationContext.beginGrouping()
+            NSAnimationContext.current.duration = 0.3
+            highlightX.animator().constant = 60
+            NSAnimationContext.endGrouping()
+        }
         
         locationGetter = NSProgressIndicator()
         locationGetter.frame.size = NSSize(width: 50, height: 50)
@@ -56,7 +73,7 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         cityPicker.wantsLayer = true
-        cityPicker.layer?.cornerRadius = 25
+        cityPicker.layer?.cornerRadius = 5
         cityPicker.layer?.masksToBounds = true
         cityPicker.layer?.borderColor = NSColor.white.cgColor
         cityPicker.frame.origin.y = 0 - cityPicker.frame.size.height
@@ -67,6 +84,16 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         }
         
         self.view.wantsLayer = true
+        switcherHighlight.wantsLayer = true
+        switcherBackground.wantsLayer = true
+        switcherHighlight.layer?.backgroundColor = NSColor.darkGray.withAlphaComponent(0.6).cgColor
+        switcherBackground.layer?.backgroundColor = NSColor.lightGray.withAlphaComponent(0.6).cgColor
+        switcherHighlight.layer?.cornerRadius = 5
+        switcherBackground.layer?.cornerRadius = 5
+        
+        switcherX.constant = -120
+        powerX.constant = -100
+        labelx.constant = -250
         
         if CLLocationManager.locationServicesEnabled() == false {
             let bg = NSVisualEffectView(frame: self.view.bounds)
@@ -76,7 +103,7 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
             let prompt = NSView(frame: NSRect(x: 64, y: self.view.frame.size.height + 300, width: bg.frame.size.width - 128, height: 300))
             prompt.wantsLayer = true
             prompt.layer?.backgroundColor = NSColor(red: (244 / 255), green: (66 / 255), blue: (66 / 255), alpha: 1).cgColor
-            prompt.layer?.cornerRadius = 25
+            prompt.layer?.cornerRadius = 5
             prompt.layer?.masksToBounds = true
             bg.addSubview(prompt)
             
@@ -161,14 +188,19 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
                 self.mainView.uiDelegate = self
                 self.mainView.navigationDelegate = self
-                self.mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/6a1164725ca149523f59a0883b125f2c323869db/BASE_FILES/index.html")!))
+                self.mainView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+                self.mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/14740f1daf51a4296044d90b57355aa8a36e4ba8/BASE_FILES/index.html")!))
             }
         }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         locationSent = true
-        mainView.evaluateJavaScript("getWeatherData(\(lat), \(lon));", completionHandler: nil)
+        mainView.evaluateJavaScript("getWeatherData(\(lat), \(lon), \"\(UserDefaults.standard.string(forKey: "units")!)\");", completionHandler: nil)
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = 0.3
+        switcherBackground.animator().alphaValue = 1
+        NSAnimationContext.endGrouping()
     }
     
     @IBAction func quitApplication(_ sender: NSButton) {
@@ -189,13 +221,10 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
                         y_pos -= 50
                         subLbl.wantsLayer = true
                         subLbl.layer?.backgroundColor = NSColor.clear.cgColor
-                        subLbl.font = NSFont.systemFont(ofSize: 25)
+                        subLbl.font = NSFont.systemFont(ofSize: 15, weight: .light)
                         subLbl.title = parsedData!.predictions[i].description!
                         subLbl.isBordered = false
                         subLbl.action = #selector(self.setCustomLocation(_:))
-                        if subLbl.title.count > 35 {
-                            subLbl.font = NSFont.systemFont(ofSize: 20)
-                        }
                         self.autoViews.addSubview(subLbl)
                         let divider = NSView(frame: NSRect(x: 0, y: y_pos, width: 375, height: 2))
                         divider.wantsLayer = true
@@ -240,9 +269,9 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
                                     self.lon = location!.coordinate.longitude
 
                                     DispatchQueue.main.async {
-                                        self.cityLbl.stringValue = "City: " + self.currentCities[i]
+                                        self.cityLbl.stringValue = self.currentCities[i]
                                         self.refreshWeatherContent(sender)
-
+                                        self.autoLocationSelected = false
                                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0, execute: {
                                             activityIndicator.removeFromSuperview()
                                             self.dismissCityPicker()
@@ -260,8 +289,26 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         }
     }
     
-    @IBAction func refreshWeatherContent(_ sender: NSButton) {
-        mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/6a1164725ca149523f59a0883b125f2c323869db/BASE_FILES/index.html")!))
+    @IBAction func refreshWeatherContent(_ sender: Any) {
+        mainView.load(URLRequest(url: URL(string: "https://rawcdn.githack.com/Aries-Sciences-LLC/Quick-Weather/14740f1daf51a4296044d90b57355aa8a36e4ba8/BASE_FILES/index.html")!))
+    }
+    @IBAction func changeToCelcius(_ sender: Any) {
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = 0.3
+        highlightX.animator().constant = 8
+        NSAnimationContext.endGrouping()
+        UserDefaults.standard.setValue("C", forKey: "units")
+        refreshWeatherContent(sender)
+        dismissCityPicker()
+    }
+    @IBAction func changeToFarenheit(_ sender: Any) {
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = 0.3
+        highlightX.animator().constant = 60
+        NSAnimationContext.endGrouping()
+        UserDefaults.standard.setValue("F", forKey: "units")
+        refreshWeatherContent(sender)
+        dismissCityPicker()
     }
     
     func dialogOKCancel(question: String, text: String) {
@@ -274,9 +321,8 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
     }
     
     @IBAction func autoLocationStatus(_ sender: NSButton) {
-        autoLocationSelected = !autoLocationSelected
-        
-        if autoLocationSelected == true {
+        if !autoLocationSelected {
+            autoLocationSelected = true
             let bg = NSVisualEffectView(frame: self.view.bounds)
             bg.material = NSVisualEffectView.Material.appearanceBased
             self.view.addSubview(bg)
@@ -286,7 +332,6 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
             activityIndicator.style = NSProgressIndicator.Style.spinning
             activityIndicator.startAnimation(self)
             bg.addSubview(activityIndicator)
-            locationSelector.image = NSImage(named: NSImage.Name("location_selected_icon"))
             locationManager.startUpdatingLocation()
             lat = initLatLon.coordinate.latitude
             lon = initLatLon.coordinate.longitude
@@ -300,33 +345,40 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
                     if let city = placeMark.subAdministrativeArea {
                         activityIndicator.stopAnimation(self)
                         bg.removeFromSuperview()
-                        self.cityLbl.stringValue = "City: " + city
+                        self.cityLbl.stringValue = city
                     }
                 }
             }
         } else {
-            locationSelector.image = NSImage(named: NSImage.Name("location_unselected_icon"))
             locationManager.stopUpdatingLocation()
             
             NSAnimationContext.beginGrouping()
-            NSAnimationContext.current.duration = 1
+            NSAnimationContext.current.duration = 0.3
             cityPicker.animator().frame.origin.y = 87.5
+            switcherX.animator().constant = 20
+            powerX.animator().constant = 20
+            labelx.animator().constant = 20
             NSAnimationContext.endGrouping()
         }
     }
     
     @IBAction func closeCitypicker(_ sender: NSButton) {
         NSAnimationContext.beginGrouping()
-        NSAnimationContext.current.duration = 1
+        NSAnimationContext.current.duration = 0.3
         cityPicker.animator().frame.origin.y = 0 - cityPicker.frame.size.height
+        switcherX.animator().constant = -120
+        powerX.animator().constant = -100
+        labelx.animator().constant = -250
         NSAnimationContext.endGrouping()
-        self.autoLocationStatus(sender)
     }
     
     func dismissCityPicker() {
         NSAnimationContext.beginGrouping()
-        NSAnimationContext.current.duration = 1
+        NSAnimationContext.current.duration = 0.3
         cityPicker.animator().frame.origin.y = 0 - cityPicker.frame.size.height
+        switcherX.animator().constant = -120
+        powerX.animator().constant = -100
+        labelx.animator().constant = -250
         NSAnimationContext.endGrouping()
     }
     

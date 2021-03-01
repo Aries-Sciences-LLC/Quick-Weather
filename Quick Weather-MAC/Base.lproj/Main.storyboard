@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="17506"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -706,15 +707,20 @@
                                 <color key="contentTintColor" red="0.28832465280000003" green="0.28832465280000003" blue="0.28832465280000003" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Q18-6z-R9R">
-                                <rect key="frame" x="20" y="20" width="20" height="20"/>
+                                <rect key="frame" x="20" y="17" width="20" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="N2W-eT-4Qn"/>
                                     <constraint firstAttribute="height" constant="20" id="Umc-FC-4BU"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="exit_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9Ot-dk-JPY">
+                                <shadow key="shadow" blurRadius="8">
+                                    <size key="offset" width="3" height="3"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </shadow>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="power" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="9Ot-dk-JPY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="systemLight" size="13"/>
                                 </buttonCell>
+                                <color key="contentTintColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="quitApplication:" target="XfG-lQ-9wD" id="abI-Mc-7rd"/>
                                 </connections>
@@ -734,15 +740,20 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="VDQ-a9-05N">
-                                <rect key="frame" x="463" y="532" width="20" height="20"/>
+                                <rect key="frame" x="463" y="529" width="20" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="TK4-Kv-3xx"/>
                                     <constraint firstAttribute="height" constant="20" id="jTD-Sk-iqU"/>
                                 </constraints>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="location_selected_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CyB-lv-4M5">
+                                <shadow key="shadow" blurRadius="8">
+                                    <size key="offset" width="3" height="3"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </shadow>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gear" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CyB-lv-4M5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="systemLight" size="13"/>
                                 </buttonCell>
+                                <color key="contentTintColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
                                     <action selector="autoLocationStatus:" target="XfG-lQ-9wD" id="sQW-r8-Lnx"/>
                                 </connections>
@@ -753,9 +764,13 @@
                                     <constraint firstAttribute="width" constant="250" id="2nD-dP-g9L"/>
                                     <constraint firstAttribute="height" constant="25" id="r8u-Ad-99p"/>
                                 </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="City: " id="vuf-n9-xbH">
-                                    <font key="font" size="17" name="Futura-Medium"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <shadow key="shadow" blurRadius="8">
+                                    <size key="offset" width="3" height="3"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </shadow>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" id="vuf-n9-xbH">
+                                    <font key="font" size="17" name="Avenir-Light"/>
+                                    <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -763,11 +778,11 @@
                                 <rect key="frame" x="64" y="98" width="375" height="375"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8W-yQ-jc3">
-                                        <rect key="frame" x="0.0" y="314" width="375" height="61"/>
+                                    <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8W-yQ-jc3">
+                                        <rect key="frame" x="0.0" y="336" width="375" height="19"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="center" placeholderString="Press ENTER to Search" id="Yho-Er-hmd">
-                                            <font key="font" size="25" name="Futura-Medium"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="center" placeholderString="Press ENTER to Search" id="Yho-Er-hmd">
+                                            <font key="font" metaFont="systemLight" size="15"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" red="0.28832465280000003" green="0.28832465280000003" blue="0.28832465280000003" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                                         </textFieldCell>
@@ -778,10 +793,12 @@
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mco-tM-V4F">
                                         <rect key="frame" x="342" y="336" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="close_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2dD-yJ-qoV">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2dD-yJ-qoV">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <imageReference key="image" image="xmark" catalog="system" symbolScale="small"/>
                                         </buttonCell>
+                                        <color key="contentTintColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                         <connections>
                                             <action selector="closeCitypicker:" target="XfG-lQ-9wD" id="LTd-oY-Ncz"/>
                                         </connections>
@@ -797,12 +814,78 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </visualEffectView>
+                            <customView alphaValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="8tx-u5-ETd">
+                                <rect key="frame" x="20" y="522" width="110" height="30"/>
+                                <subviews>
+                                    <containerView translatesAutoresizingMaskIntoConstraints="NO" id="ohZ-OB-oem">
+                                        <rect key="frame" x="8" y="3" width="40" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="cg4-Ew-bLg"/>
+                                        </constraints>
+                                        <shadow key="shadow" blurRadius="8">
+                                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </shadow>
+                                        <connections>
+                                            <segue destination="bwd-74-dNy" kind="embed" id="dpe-Oc-GJb"/>
+                                        </connections>
+                                    </containerView>
+                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kMk-xd-tF9">
+                                        <rect key="frame" x="8" y="0.0" width="94" height="30"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JBx-ut-mkl">
+                                                <rect key="frame" x="0.0" y="6" width="43" height="18"/>
+                                                <buttonCell key="cell" type="bevel" title="°C" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="DPC-u2-Zij">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" size="13" name="Avenir-Book"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="changeToCelcius:" target="XfG-lQ-9wD" id="fW1-bW-99o"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sc4-qR-esu">
+                                                <rect key="frame" x="51" y="6" width="43" height="18"/>
+                                                <buttonCell key="cell" type="bevel" title="°F" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="OaP-9s-3PG">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" size="13" name="Avenir-Book"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="changeToFarenheit:" target="XfG-lQ-9wD" id="yag-kN-V2g"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ohZ-OB-oem" secondAttribute="bottom" constant="3" id="1Fd-S7-crN"/>
+                                    <constraint firstItem="kMk-xd-tF9" firstAttribute="leading" secondItem="8tx-u5-ETd" secondAttribute="leading" constant="8" id="3GR-Tx-Ykd"/>
+                                    <constraint firstItem="ohZ-OB-oem" firstAttribute="leading" secondItem="8tx-u5-ETd" secondAttribute="leading" constant="8" id="Co4-eR-ygM"/>
+                                    <constraint firstAttribute="bottom" secondItem="kMk-xd-tF9" secondAttribute="bottom" id="SMp-n0-LHo"/>
+                                    <constraint firstAttribute="height" constant="30" id="cUs-ax-vie"/>
+                                    <constraint firstAttribute="width" constant="110" id="f2B-Yb-boc"/>
+                                    <constraint firstItem="kMk-xd-tF9" firstAttribute="top" secondItem="8tx-u5-ETd" secondAttribute="top" id="oTZ-EP-Fjn"/>
+                                    <constraint firstItem="ohZ-OB-oem" firstAttribute="top" secondItem="8tx-u5-ETd" secondAttribute="top" constant="3" id="ysP-fA-x44"/>
+                                    <constraint firstAttribute="trailing" secondItem="kMk-xd-tF9" secondAttribute="trailing" constant="8" id="zK3-yo-1bI"/>
+                                </constraints>
+                                <shadow key="shadow" blurRadius="8">
+                                    <size key="offset" width="3" height="3"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </shadow>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="MBP-J0-7Wm" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="3jE-yQ-SH1"/>
                             <constraint firstItem="Q18-6z-R9R" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="3ol-Jo-dHF"/>
                             <constraint firstItem="MBP-J0-7Wm" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="CK2-W8-ciy"/>
                             <constraint firstItem="yxv-aZ-6Vb" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="DHU-0O-zdc"/>
+                            <constraint firstItem="8tx-u5-ETd" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="DRc-nQ-HCu"/>
                             <constraint firstItem="eaN-Ld-Tbi" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="H4i-E8-AXg"/>
                             <constraint firstItem="eaN-Ld-Tbi" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="L52-b7-Y9U"/>
                             <constraint firstAttribute="bottom" secondItem="EVD-wT-s8f" secondAttribute="bottom" constant="20" id="L9N-3E-2NI"/>
@@ -812,6 +895,7 @@
                             <constraint firstItem="eaN-Ld-Tbi" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="hlR-cu-b47"/>
                             <constraint firstAttribute="trailing" secondItem="eaN-Ld-Tbi" secondAttribute="trailing" id="pza-UF-cOq"/>
                             <constraint firstItem="eaN-Ld-Tbi" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="qbw-HE-gWB"/>
+                            <constraint firstItem="8tx-u5-ETd" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="rcO-C0-gdk"/>
                             <constraint firstItem="VDQ-a9-05N" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="tLd-UU-8GP"/>
                             <constraint firstItem="yxv-aZ-6Vb" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="vJc-rX-DeG"/>
                             <constraint firstAttribute="bottom" secondItem="eaN-Ld-Tbi" secondAttribute="bottom" id="wAM-U8-KEW"/>
@@ -823,21 +907,40 @@
                         <outlet property="cityPicker" destination="bDD-6e-eFu" id="LSw-7P-ui2"/>
                         <outlet property="citySetter" destination="U8W-yQ-jc3" id="U71-2R-JJD"/>
                         <outlet property="exitBtn" destination="Q18-6z-R9R" id="833-6C-dzg"/>
+                        <outlet property="highlightX" destination="Co4-eR-ygM" id="Qfh-Ka-phy"/>
+                        <outlet property="labelx" destination="N3V-KY-hoE" id="WYr-P2-eTd"/>
                         <outlet property="locationSelector" destination="VDQ-a9-05N" id="65G-pt-bSS"/>
                         <outlet property="mainView" destination="eaN-Ld-Tbi" id="aOx-1B-JoB"/>
                         <outlet property="main_icon" destination="MBP-J0-7Wm" id="k4V-p3-TgH"/>
+                        <outlet property="powerX" destination="3ol-Jo-dHF" id="Fog-sS-8z1"/>
                         <outlet property="refresBtn" destination="yxv-aZ-6Vb" id="Y7W-1E-UJh"/>
+                        <outlet property="switcherBackground" destination="8tx-u5-ETd" id="DXF-1f-pNA"/>
+                        <outlet property="switcherHighlight" destination="ohZ-OB-oem" id="sBs-h0-dwB"/>
+                        <outlet property="switcherX" destination="rcO-C0-gdk" id="ZlF-ih-oKR"/>
                     </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="75.5" y="352"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="PGL-Xy-kwj">
+            <objects>
+                <viewController id="bwd-74-dNy" sceneMemberID="viewController">
+                    <view key="view" id="HGh-5b-pLR">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="g4g-nP-H3i" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-446" y="641"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="close_icon" width="50" height="50"/>
-        <image name="exit_icon" width="50" height="50"/>
-        <image name="location_selected_icon" width="30" height="30"/>
+        <image name="gear" catalog="system" width="17" height="17"/>
+        <image name="power" catalog="system" width="15" height="16"/>
         <image name="refresh_icon" width="50" height="50"/>
         <image name="title_icon" width="256" height="256"/>
+        <image name="xmark" catalog="system" width="13" height="11"/>
     </resources>
 </document>
