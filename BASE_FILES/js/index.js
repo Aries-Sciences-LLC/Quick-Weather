@@ -76,6 +76,9 @@ var settings = {
 	splashBounce: 80
 };
 
+// units for weather
+var format = "";
+
 var tickCount = 0;
 var rain = [];
 var leafs = [];
@@ -126,6 +129,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
 // Get Weather Data
 
 function getWeatherData(lat, lon, units) {
+	format = units;
 	$.ajax({
 		type: "GET",
 		url: "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=c43dc67f50678fa8deb7d820b8cc9f69&units=" + (units == "F" ? "imperial" : "metric"),
@@ -178,9 +182,9 @@ function updateViews() {
 		container.addClass(weather[6].type);
 	}
 
-	document.getElementById('temp').innerHTML = Math.floor(data.temp) + "<span>F</span>";
-	document.getElementById('range-min').innerHTML = "Low: " + data.min + "<span>F</span>";
-	document.getElementById('range-max').innerHTML = "High: " + data.max + "<span>F</span>";
+	document.getElementById('temp').innerHTML = Math.floor(data.temp) + "<span>" + format + "</span>";
+	document.getElementById('range-min').innerHTML = "Low: " + data.min + "<span>" + format + "</span>";
+	document.getElementById('range-max').innerHTML = "High: " + data.max + "<span>" + format + "</span>";
 	document.getElementById('wind-speed').innerHTML += " " + data.wind_speed;
 
 	document.getElementById('loader').style = "display: none;";
