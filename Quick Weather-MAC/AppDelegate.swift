@@ -53,6 +53,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         eventMonitor?.start()
         
         windowOpen = true
+        
+        guard let cvc = popUp.contentViewController as? PopUpViewController else { return }
+        cvc.refreshWeatherContent(cvc)
     }
     
     func closePopover(sender: Any?) {

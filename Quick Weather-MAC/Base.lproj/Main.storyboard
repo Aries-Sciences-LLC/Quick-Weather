@@ -703,9 +703,16 @@
                                     <constraint firstAttribute="height" constant="200" id="5M5-IZ-23p"/>
                                     <constraint firstAttribute="width" constant="200" id="iSZ-Ub-n5X"/>
                                 </constraints>
+                                <shadow key="shadow" blurRadius="16">
+                                    <size key="offset" width="3" height="3"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </shadow>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="title_icon" id="au8-mc-5GF"/>
                                 <color key="contentTintColor" red="0.28832465280000003" green="0.28832465280000003" blue="0.28832465280000003" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
+                            <progressIndicator maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="WQB-Si-2Xu">
+                                <rect key="frame" x="244" y="156" width="16" height="16"/>
+                            </progressIndicator>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Q18-6z-R9R">
                                 <rect key="frame" x="20" y="17" width="20" height="27"/>
                                 <constraints>
@@ -749,7 +756,7 @@
                                     <size key="offset" width="3" height="3"/>
                                     <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </shadow>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gear" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="CyB-lv-4M5">
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="gear" catalog="system" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyUpOrDown" inset="2" id="CyB-lv-4M5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemLight" size="13"/>
                                 </buttonCell>
@@ -781,6 +788,10 @@
                                     <textField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U8W-yQ-jc3">
                                         <rect key="frame" x="0.0" y="336" width="375" height="19"/>
                                         <autoresizingMask key="autoresizingMask"/>
+                                        <shadow key="shadow" blurRadius="8">
+                                            <size key="offset" width="3" height="3"/>
+                                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </shadow>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="center" placeholderString="Press ENTER to Search" id="Yho-Er-hmd">
                                             <font key="font" metaFont="systemLight" size="15"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -793,12 +804,16 @@
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mco-tM-V4F">
                                         <rect key="frame" x="342" y="336" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <shadow key="shadow" blurRadius="8">
+                                            <size key="offset" width="3" height="3"/>
+                                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </shadow>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2dD-yJ-qoV">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                             <imageReference key="image" image="xmark" catalog="system" symbolScale="small"/>
                                         </buttonCell>
-                                        <color key="contentTintColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                         <connections>
                                             <action selector="closeCitypicker:" target="XfG-lQ-9wD" id="LTd-oY-Ncz"/>
                                         </connections>
@@ -808,6 +823,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </subviews>
+                                <shadow key="shadow" blurRadius="23">
+                                    <size key="offset" width="3" height="3"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </shadow>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                         <real key="value" value="0.29999999999999999"/>
@@ -879,16 +898,73 @@
                                     <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </shadow>
                             </customView>
+                            <stackView alphaValue="0.0" distribution="fill" orientation="horizontal" alignment="top" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0LP-D8-2te">
+                                <rect key="frame" x="49" y="20" width="405" height="12"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VJo-gz-JW1">
+                                        <rect key="frame" x="-2" y="1" width="137" height="11"/>
+                                        <shadow key="shadow" blurRadius="8">
+                                            <size key="offset" width="3" height="3"/>
+                                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </shadow>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Having trouble? Please check" id="tog-g8-xJQ">
+                                            <font key="font" metaFont="systemMedium" size="9"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OGm-4h-NoH">
+                                        <rect key="frame" x="136" y="0.0" width="82" height="12"/>
+                                        <shadow key="shadow" blurRadius="8">
+                                            <size key="offset" width="3" height="3"/>
+                                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </shadow>
+                                        <buttonCell key="cell" type="bevel" title="location services" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="DI0-jB-Uox">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="systemMedium" size="9"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="usingCustomLocation:" target="XfG-lQ-9wD" id="B0d-DS-8YD"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QCg-qo-QVO">
+                                        <rect key="frame" x="219" y="1" width="188" height="11"/>
+                                        <shadow key="shadow" blurRadius="8">
+                                            <size key="offset" width="3" height="3"/>
+                                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </shadow>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="are enabled and permissions are granted" id="afi-rI-iof">
+                                            <font key="font" metaFont="systemMedium" size="9"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="MBP-J0-7Wm" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="3jE-yQ-SH1"/>
                             <constraint firstItem="Q18-6z-R9R" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="3ol-Jo-dHF"/>
+                            <constraint firstItem="WQB-Si-2Xu" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" multiplier="1.425" id="5wd-u3-JdZ"/>
+                            <constraint firstAttribute="bottom" secondItem="0LP-D8-2te" secondAttribute="bottom" constant="20" symbolic="YES" id="7Sc-QT-yTb"/>
                             <constraint firstItem="MBP-J0-7Wm" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="CK2-W8-ciy"/>
                             <constraint firstItem="yxv-aZ-6Vb" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="DHU-0O-zdc"/>
                             <constraint firstItem="8tx-u5-ETd" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="DRc-nQ-HCu"/>
                             <constraint firstItem="eaN-Ld-Tbi" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="H4i-E8-AXg"/>
                             <constraint firstItem="eaN-Ld-Tbi" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="L52-b7-Y9U"/>
                             <constraint firstAttribute="bottom" secondItem="EVD-wT-s8f" secondAttribute="bottom" constant="20" id="L9N-3E-2NI"/>
+                            <constraint firstItem="0LP-D8-2te" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="MCR-Xp-Yaj"/>
+                            <constraint firstItem="WQB-Si-2Xu" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="MuN-4O-RDr"/>
                             <constraint firstAttribute="trailing" secondItem="EVD-wT-s8f" secondAttribute="trailing" constant="20" id="N3V-KY-hoE"/>
                             <constraint firstAttribute="bottom" secondItem="Q18-6z-R9R" secondAttribute="bottom" constant="20" id="Tvf-Ci-28N"/>
                             <constraint firstAttribute="trailing" secondItem="VDQ-a9-05N" secondAttribute="trailing" constant="20" id="b50-wd-3qW"/>
@@ -907,8 +983,10 @@
                         <outlet property="cityPicker" destination="bDD-6e-eFu" id="LSw-7P-ui2"/>
                         <outlet property="citySetter" destination="U8W-yQ-jc3" id="U71-2R-JJD"/>
                         <outlet property="exitBtn" destination="Q18-6z-R9R" id="833-6C-dzg"/>
+                        <outlet property="helpLbl" destination="0LP-D8-2te" id="yXP-hA-xu4"/>
                         <outlet property="highlightX" destination="Co4-eR-ygM" id="Qfh-Ka-phy"/>
                         <outlet property="labelx" destination="N3V-KY-hoE" id="WYr-P2-eTd"/>
+                        <outlet property="locationGetter" destination="WQB-Si-2Xu" id="8S6-AM-qnm"/>
                         <outlet property="locationSelector" destination="VDQ-a9-05N" id="65G-pt-bSS"/>
                         <outlet property="mainView" destination="eaN-Ld-Tbi" id="aOx-1B-JoB"/>
                         <outlet property="main_icon" destination="MBP-J0-7Wm" id="k4V-p3-TgH"/>

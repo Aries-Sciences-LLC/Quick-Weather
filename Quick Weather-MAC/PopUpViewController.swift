@@ -22,7 +22,6 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
     var setCity = false
     var initLatLon = CLLocation()
     var currentCities : [String] = []
-    var locationGetter : NSProgressIndicator = NSProgressIndicator()
     
     @IBOutlet weak var mainView: WKWebView!
     @IBOutlet weak var exitBtn: NSButton!
@@ -39,6 +38,8 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
     @IBOutlet var switcherX: NSLayoutConstraint!
     @IBOutlet var powerX: NSLayoutConstraint!
     @IBOutlet var labelx: NSLayoutConstraint!
+    @IBOutlet weak var helpLbl: NSStackView!
+    @IBOutlet weak var locationGetter: NSProgressIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,17 +58,9 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
             NSAnimationContext.endGrouping()
         }
         
-        locationGetter = NSProgressIndicator()
-        locationGetter.frame.size = NSSize(width: 50, height: 50)
-        locationGetter.frame.origin = NSPoint(x: (self.view.frame.size.width / 2) - 17.5, y: (self.view.frame.size.height / 2) - 150)
-        locationGetter.style = NSProgressIndicator.Style.spinning
-        locationGetter.sizeToFit()
-        locationGetter.startAnimation(self)
-        self.view.addSubview(locationGetter)
-        
         self.citySetter.delegate = self
         self.citySetter.focusRingType = NSFocusRingType.none
-        
+        self.locationGetter.startAnimation(self)
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -94,68 +87,20 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         switcherX.constant = -120
         powerX.constant = -100
         labelx.constant = -250
-        
-        if CLLocationManager.locationServicesEnabled() == false {
-            let bg = NSVisualEffectView(frame: self.view.bounds)
-            bg.material = NSVisualEffectView.Material.contentBackground
-            self.view.addSubview(bg)
-            
-            let prompt = NSView(frame: NSRect(x: 64, y: self.view.frame.size.height + 300, width: bg.frame.size.width - 128, height: 300))
-            prompt.wantsLayer = true
-            prompt.layer?.backgroundColor = NSColor(red: (244 / 255), green: (66 / 255), blue: (66 / 255), alpha: 1).cgColor
-            prompt.layer?.cornerRadius = 5
-            prompt.layer?.masksToBounds = true
-            bg.addSubview(prompt)
-            
-            let promptTTL = NSTextView(frame: NSRect(x: 0, y: prompt.frame.size.height - 70, width: prompt.frame.size.width, height: 50))
-            promptTTL.string = "Uh-Oh, Location Isn't Available!"
-            promptTTL.isEditable = false
-            promptTTL.textColor = NSColor.white
-            promptTTL.alignment = NSTextAlignment.center
-            promptTTL.font = NSFont.systemFont(ofSize: 25)
-            promptTTL.drawsBackground = false
-            prompt.addSubview(promptTTL)
-            
-            let promptDescription = NSTextView(frame: NSRect(x: 16, y: 40, width: prompt.frame.size.width - 32, height: 200))
-            promptDescription.drawsBackground = false
-            promptDescription.textColor = NSColor.lightGray
-            promptDescription.alignment = NSTextAlignment.center
-            promptDescription.string = "Looks like you turned off your location services, if you would like to find the weather for your location, please go to System Prefrences -> General & Privacy -> Privacy -> Click the lock in the bottom corner, type in password -> Check the enable location services box -> Lock to save -> Relaunch app."
-            promptDescription.font = NSFont.systemFont(ofSize: 20)
-            prompt.addSubview(promptDescription)
-            
-            let useCustomLocation = NSButton(frame: NSRect(x: self.view.frame.size.width / 2, y: (bg.frame.size.height / 2) - 182, width: 0, height: 30))
-            useCustomLocation.wantsLayer = true
-            useCustomLocation.isBordered = false
-            useCustomLocation.layer?.backgroundColor = NSColor(red: (66 / 255), green: (66 / 255), blue: (244 / 255), alpha: 1).cgColor
-            useCustomLocation.layer?.cornerRadius = useCustomLocation.frame.size.height / 2
-            useCustomLocation.layer?.masksToBounds = true
-            let pstyle = NSMutableParagraphStyle()
-            pstyle.alignment = NSTextAlignment.center
-            useCustomLocation.attributedTitle = NSAttributedString(string: "Open System Preferences", attributes: [ NSAttributedString.Key.foregroundColor : NSColor.white, NSAttributedString.Key.paragraphStyle : pstyle ])
-            useCustomLocation.font = NSFont.systemFont(ofSize: 25)
-            useCustomLocation.alignment = NSTextAlignment.center
-            useCustomLocation.action = #selector(self.usingCustomLocation(_:))
-            bg.addSubview(useCustomLocation)
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                NSAnimationContext.beginGrouping()
-                NSAnimationContext.current.duration = 1
-                prompt.animator().frame.origin.y = (bg.frame.size.height / 2) - 150
-                useCustomLocation.animator().frame.origin.x = 64
-                useCustomLocation.animator().frame.size.width = prompt.frame.size.width
-                NSAnimationContext.endGrouping()
-            }
-        }
     }
     
-    @objc func usingCustomLocation(_ sender: NSButton!) {
+    @IBAction func usingCustomLocation(_ sender: NSButton!) {
         NSWorkspace.shared.open(URL(fileURLWithPath: "/System/Library/PreferencePanes/Security.prefPane"))
         NSApplication.shared.terminate(self)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        return
+        print(error)
+        
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = 0.3
+        self.helpLbl.animator().alphaValue = 1
+        NSAnimationContext.endGrouping()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -182,7 +127,8 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
             NSAnimationContext.beginGrouping()
             NSAnimationContext.current.duration = 1.0
             self.main_icon.animator().alphaValue = 0
-            self.locationGetter.alphaValue = 0
+            self.locationGetter.animator().alphaValue = 0
+            self.helpLbl.animator().alphaValue = 0
             NSAnimationContext.endGrouping()
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
@@ -201,6 +147,7 @@ class PopUpViewController: NSViewController, WKUIDelegate, WKNavigationDelegate,
         NSAnimationContext.current.duration = 0.3
         switcherBackground.animator().alphaValue = 1
         NSAnimationContext.endGrouping()
+        locationSelector.isEnabled = true
     }
     
     @IBAction func quitApplication(_ sender: NSButton) {
