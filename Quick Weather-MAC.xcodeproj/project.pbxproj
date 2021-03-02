@@ -488,7 +488,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = QXNMG5R4EQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Quick Weather-MAC/Info.plist";
@@ -496,7 +496,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.burcumirza.Quick-Weather-MAC";
 				PRODUCT_NAME = "Quick Weather";
 				SWIFT_VERSION = 4.2;
@@ -511,7 +511,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = QXNMG5R4EQ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Quick Weather-MAC/Info.plist";
@@ -519,7 +519,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.6;
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.burcumirza.Quick-Weather-MAC";
 				PRODUCT_NAME = "Quick Weather";
 				SWIFT_VERSION = 4.2;
